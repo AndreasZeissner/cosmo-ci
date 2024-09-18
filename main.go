@@ -20,4 +20,9 @@ func main() {
 	fmt.Println("Value:", viper.GetString("foo"))
 	fmt.Println("Value:", viper.GetString("bar"))
 	fmt.Println("Value:", viper.GetString("baz"))
+
+	values := []string{viper.GetString("foo"), viper.GetString("bar"), viper.GetString("baz")}
+	for _, value := range values {
+		fmt.Println("Feature Value:", value)
+	}
 }
