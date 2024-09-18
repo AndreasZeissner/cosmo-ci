@@ -1,6 +1,10 @@
 name: Terraform Provider CI
+
 on:
   pull_request:
+    paths-ignore:
+      - "README.md"
+  push:
     paths-ignore:
       - "README.md"
 
