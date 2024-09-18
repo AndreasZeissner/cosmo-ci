@@ -8,15 +8,16 @@ import (
 )
 
 func main() {
-	viper.SetConfigName("config") 
-	viper.SetConfigType("yaml") 
-	viper.AddConfigPath(".") 
+	viper.SetConfigName("config")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(".")
 
-	err := viper.ReadInConfig() 
+	err := viper.ReadInConfig()
 	if err != nil {
 		log.Fatalf("Error reading config file, %s", err)
 	}
 
-	fmt.Println("Value:", viper.GetString("foo")) 
-	fmt.Println("Value:", viper.GetString("bar")) 
+	fmt.Println("Value:", viper.GetString("foo"))
+	fmt.Println("Value:", viper.GetString("bar"))
+	fmt.Println("Value:", viper.GetString("baz"))
 }
