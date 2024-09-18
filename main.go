@@ -17,5 +17,6 @@ func main() {
 		log.Fatalf("Error reading config file, %s", err)
 	}
 
-	fmt.Println("Value:", viper.GetString("key")) 
+	fmt.Println("Value:", viper.GetString("foo")) 
+	fmt.Println("Value:", viper.GetString("bar")) 
 }
