@@ -18,11 +18,14 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: ncipollo/release-action@v1
+      - uses: actions/checkout@v4.1.7
         with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
+          # Allow goreleaser to access older tag information.
+          fetch-depth: 0
+      - uses: actions/checkout@v4.1.7
+        with:
+          # Allow goreleaser to access older tag information.
+          fetch-depth: 0
       - uses: actions/setup-go@v5.0.2
         with:
           go-version-file: "go.mod"
