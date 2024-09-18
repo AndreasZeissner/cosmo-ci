@@ -17,6 +17,7 @@ func main() {
 		log.Fatalf("Error reading file, %s", err)
 	}
 
+	fmt.Println("Getting Values:")
 	fmt.Println("Value:", viper.GetString("foo"))
 	fmt.Println("Value:", viper.GetString("bar"))
 	fmt.Println("Value:", viper.GetString("baz"))
