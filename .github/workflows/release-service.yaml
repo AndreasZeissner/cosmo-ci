@@ -1,0 +1,36 @@
+---
+name: Workflow Release Service
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        type: choice
+        options:
+          - dev
+          - prd
+      helm_chart_cosmo_version:
+        type: string
+        default: ""
+      otellcollector_version:
+        type: string
+        default: ""
+      graphqlmetrics_version:
+        type: string
+        default: ""
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.repository.name }}-${{ github.event.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - run: |
+          echo "Deploying to ${{ inputs.stage }} stage"
+          echo "Helm Chart Cosmo Version: ${{ inputs.helm_chart_cosmo_version }}"
+          echo "Otel Collector Version: ${{ inputs.otellcollector_version }}"
+          echo "GraphQL Metrics Version: ${{ inputs.graphqlmetrics_version }}"
