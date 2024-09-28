@@ -26,11 +26,20 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - run: |
-          echo "Deploying to ${{ inputs.stage }} stage"
-          echo "Helm Chart Cosmo Version: ${{ inputs.helm_chart_cosmo_version }}"
-          echo "Otel Collector Version: ${{ inputs.otellcollector_version }}"
-          echo "GraphQL Metrics Version: ${{ inputs.graphqlmetrics_version }}"
+          mkdir -p gitops/${{ inputs.stage }}
+
+          echo "${{ inputs.helm_chart_cosmo_version }}" >> gitops/${{ inputs.stage }}/helm_chart_cosmo_version
+          echo "${{ inputs.otellcollector_version }}" >> gitops/${{ inputs.stage }}/otellcollector_version
+          echo "${{ inputs.graphqlmetrics_version }}" >> gitops/${{ inputs.stage }}/graphqlmetrics_version
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update gitops/${{ inputs.stage }}/*"
+          skip_fetch: true
+          skip_checkout: true
+          file_pattern: "gitops/${{ inputs.stage }}/*"
